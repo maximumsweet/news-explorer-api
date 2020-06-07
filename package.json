@@ -1,6 +1,6 @@
 {
   "name": "news-explorer-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "diplom work Yandex.Praktikum",
   "main": "app.js",
   "scripts": {
@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/maximumsweet/news-explorer-api/issues"
   },
-  "homepage": "https://github.com/maximumsweet/news-explorer-api#readme"
+  "homepage": "https://github.com/maximumsweet/news-explorer-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18",
+    "validator": "^13.0.0"
+  }
 }
