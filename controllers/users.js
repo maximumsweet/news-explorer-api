@@ -28,10 +28,10 @@ module.exports.createUser = (req, res, next) => {
           password: hash,
           name,
         }))
-        .then((user) => res.status(201).send({
-          _id: user._id,
-          email: user.email,
-          name: user.name,
+        .then((users) => res.status(201).send({
+          _id: users._id,
+          email: users.email,
+          name: users.name,
         }));
     })
     .catch(next);
