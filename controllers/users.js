@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/user.js');
 const ConflictError = require('../errors/conflictError');
 const { EMAIL_ALREADY_EXISTS } = require('../configs/errorConstants');
+const { jwtDevSecret } = require('../configs/devConfig');
 
-const { SECRET } = require('../configs/devConfig');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.showMyInfo = (req, res, next) => {
   userModel.findById({ _id: req.user._id })
@@ -42,7 +43,7 @@ module.exports.login = (req, res, next) => {
 
   return userModel.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, SECRET, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : jwtDevSecret, { expiresIn: '7d' });
       res.cookie('jwt', token, {
         maxAge: 604800,
         httpOnly: true,

@@ -1,9 +1,7 @@
-const {
-  NODE_ENV, JWT_SECRET,
-} = process.env;
+const jwtDevSecret = 'dev-secret';
+const mongoUrl = 'mongodb://localhost:27017/newsdb';
 
-const devSecret = 'dev-secret';
-
-const SECRET = NODE_ENV === 'production' ? JWT_SECRET : devSecret;
-
-module.exports = SECRET;
+module.exports = {
+  jwtDevSecret,
+  mongoUrl,
+};

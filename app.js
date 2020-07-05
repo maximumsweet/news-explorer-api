@@ -7,18 +7,19 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 
 const routes = require('./routes');
-const limiter = require('./modules/limiter');
 const { errorMiddleware } = require('./middlewares/errorMiddleware');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { mongoUrl } = require('./configs/devConfig');
+const limiter = require('./modules/limiter');
 
 const app = express();
 
 app.use(helmet());
 app.use(limiter);
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, DATABASE_LINK } = process.env;
 
-mongoose.connect('mongodb://localhost:27017/newsdb', {
+mongoose.connect(NODE_ENV === 'production' ? DATABASE_LINK : mongoUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -38,6 +39,4 @@ app.use(errors());
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Сервис запущен на ${PORT} порту`);
-});
+app.listen(PORT);
